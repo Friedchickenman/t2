@@ -1,13 +1,12 @@
-import './App.css'
-import CountContainer from "./components/countContainer.tsx";
-import TodoContainer from "./components/todo/todoContainer.tsx";
+import KioskContainer from "./components/kiosk/kioskContainer.tsx";
 
 function App() {
 
   return (
     <>
-        <CountContainer></CountContainer>
-        <TodoContainer></TodoContainer>
+        <KioskContainer></KioskContainer>
+        {/*<CountContainer></CountContainer>*/}
+        {/*<TodoContainer></TodoContainer>*/}
     </>
   )
 }
