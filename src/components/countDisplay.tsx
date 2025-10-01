@@ -3,13 +3,13 @@ interface CountDisplayProps {
     count: Count
 }
 
-function CountDisplay({count}: {count:CountDisplayProps}) {
+function CountDisplay({count, }: CountDisplayProps) {
 
-    console.log(count)
+    console.log(count, )
 
     return (
         <div className={'text-4xl'}>
-            NUMBER:
+            NUMBER: {count.num}
         </div>
     );
 }
