@@ -2,11 +2,13 @@ import {useState} from "react";
 
 interface MenuComponentProps {
 
-    menus: Menu[]
+    menus: Menu[],
+    addCart: (mno:number) => void
 
 }
 
-function MenuComponent( {menus} : MenuComponentProps) {
+function MenuComponent( {menus, addCart} : MenuComponentProps) {
+
 
     const [arr, setArr] = useState<Menu[]>(menus)
 
@@ -15,19 +17,22 @@ function MenuComponent( {menus} : MenuComponentProps) {
         if(cat === 'A') {
             arr.forEach(menu => menu.show = true)
         }else{
-            arr.forEach(menu=> {
-                if(menu.category === cat){
-                    menu.show = true
-                }else{
-                    menu.show = false
-                }
-            })
+            arr.forEach(menu=> {menu.show = menu.category === cat})
         }
         setArr([...arr])
 
     }
 
-    const menuLis = arr.map( menu => menu.show ? <div key={menu.mno} className="max-w-xs bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+    const handleClick = (mno:number) => {
+
+        if(confirm('장바구니에 추가하시겠습니까?')) {
+            console.log(mno)
+        }
+
+    }
+
+    const menuLis = arr.map( menu => menu.show ?
+        <div onClick={() => handleClick(menu.mno)} key={menu.mno} className="max-w-xs bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
         <img src={menu.imgName} alt={menu.name} className="w-full h-48 object-cover" />
         <div className="p-4 text-center">
             <h2 className="text-lg font-semibold text-gray-800">
