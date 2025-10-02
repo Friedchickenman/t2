@@ -4,5 +4,6 @@ interface Menu {
     name: string,
     price: number,
     imgName ?: string,
-    category: string
+    category: string,
+    show: boolean
 }
