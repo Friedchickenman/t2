@@ -7,12 +7,11 @@ function KioskContainer() {
     const [cartItems, setCartItems] = useState<CartItem[]>([])
 
 
-
     const menuArr: Menu[] = [
-        {mno: 1, name: 'Drip Coffee', price:4000, imgName:'M1.jpg', category:'C' },
-        {mno: 2, name: 'Latte', price:5000, imgName:'M2.jpg', category:'C'},
-        {mno: 3, name: 'Apple Cake', price:7000, imgName:'M3.jpg', category:'D'},
-        {mno: 4, name: 'Key Ring', price:3000, imgName:'M4.jpg', category:'G'}
+        {mno: 1, name: 'Drip Coffee', price: 4000, imgName: 'M1.jpg', category: 'C'},
+        {mno: 2, name: 'Latte', price: 5000, imgName: 'M2.jpg', category: 'C'},
+        {mno: 3, name: 'Apple Cake', price: 7000, imgName: 'M3.jpg', category: 'D'},
+        {mno: 4, name: 'Key Ring', price: 3000, imgName: 'M4.jpg', category: 'G'}
     ]
 
     //메뉴 컴포넌트에서 특정 메뉴를 클릭했을때 호출하는 함수
@@ -23,20 +22,32 @@ function KioskContainer() {
 
         //cartItems에서 해당 메뉴가 있는지 확인
 
-        const resultArr:CartItem[] = cartItems.filter( item => item.menu.mno === mno)
+        const resultArr: CartItem[] = cartItems.filter(item => item.menu.mno === mno)
 
         console.log(resultArr)
 
         //없다면 cartItems에 추가
-        if(resultArr.length === 0) {
-            cartItems.push( {menu:targetMenu , qty: 1})
-        }else {
+        if (resultArr.length === 0) {
+            cartItems.push({menu: targetMenu, qty: 1})
+        } else {
             //있다면 qty만 변경
             resultArr[0].qty += 1
         }
         setCartItems([...cartItems])
     }
 
+    const changeCart = (mno: number, amount: number, del: boolean) => {
+
+        //카트에서 삭제
+        if(del){
+            setCartItems([...cartItems.filter(item => item.menu.mno !== mno) ])
+            return
+        }
+
+        const cartItem: CartItem = cartItems.filter(item => item.menu.mno === mno)[0]
+        cartItem.qty += amount
+        setCartItems({...cartItems})
+    }
 
     return (
         <div className={'flex h-full'}>
@@ -46,7 +57,9 @@ function KioskContainer() {
             </div>
 
             <div className={'w-2/3 h-full bg-green-300 p-10'}>
-            <CartComponent cartItems={cartItems}></CartComponent>
+            <CartComponent
+                cartItems={cartItems}
+                changeCart={changeCart}></CartComponent>
             </div>
 
         </div>

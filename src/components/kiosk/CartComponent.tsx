@@ -3,12 +3,15 @@
 interface CartComponentProps {
 
     cartItems: CartItem[]
+    changeCart: (mno:number, amount:number, del ?:boolean) => void
 
 }
 
-function CartComponent({cartItems} : CartComponentProps) {
+function CartComponent({cartItems, changeCart} : CartComponentProps) {
 
     let total = 0
+
+    console.log(changeCart)
 
     const lis = cartItems.map(({menu, qty}:CartItem) => {
 
@@ -16,8 +19,24 @@ function CartComponent({cartItems} : CartComponentProps) {
 
     return (
         <li key={menu.mno}>
+            <div>
         {menu.name} - {menu.price} - {qty}
-    </li>
+            </div>
+            <div>
+                <button
+                className={'m-2 p-10 border-1'}
+                onClick={() => changeCart(menu.mno,1)}
+                > + </button>
+                <button
+                    className={'m-2 p-10 border-1'}
+                    onClick={() => changeCart(menu.mno,-1)}
+                > - </button>
+                <button
+                    className={'m-2 p-10 border-1'}
+                    onClick={() => changeCart(menu.mno,1,true)}
+                > x </button>
+            </div>
+        </li>
     )
 })
 
