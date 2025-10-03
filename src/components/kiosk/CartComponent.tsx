@@ -8,12 +8,18 @@ interface CartComponentProps {
 
 function CartComponent({cartItems} : CartComponentProps) {
 
-    console.log(cartItems)
+    let total = 0
 
-    const lis = cartItems.map(({menu, qty}:CartItem) =>
-    <li key={menu.mno}>
+    const lis = cartItems.map(({menu, qty}:CartItem) => {
+
+        total += menu.price * qty
+
+    return (
+        <li key={menu.mno}>
         {menu.name} - {menu.price} - {qty}
-    </li>)
+    </li>
+    )
+})
 
     return (
         <div>
@@ -23,6 +29,10 @@ function CartComponent({cartItems} : CartComponentProps) {
                 <ul>
                     {lis}
                 </ul>
+            </div>
+
+            <div>
+                TOTAL: {total}
             </div>
         </div>
     );
