@@ -18,7 +18,7 @@ function CartComponent({cartItems, changeCart} : CartComponentProps) {
         total += menu.price * qty
 
     return (
-        <li key={menu.mno}>
+        <li key={menu.mno} className={'flex'}>
             <div>
         {menu.name} - {menu.price} - {qty}
             </div>
