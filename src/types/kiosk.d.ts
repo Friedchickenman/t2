@@ -5,5 +5,10 @@ interface Menu {
     price: number,
     imgName ?: string,
     category: string,
-    show: boolean
+    show ?: boolean
+}
+
+interface CartItem {
+    menu: Menu,
+    qty: number
 }

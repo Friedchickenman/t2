@@ -1,18 +1,40 @@
 import MenuComponent from "./menuComponent.tsx";
 import CartComponent from "./CartComponent.tsx";
+import {useState} from "react";
 
 function KioskContainer() {
 
+    const [cartItems, setCartItems] = useState<CartItem[]>([])
+
+
+
     const menuArr: Menu[] = [
-        {mno: 1, name: 'Drip Coffee', price:4000, imgName:'M1.jpg', category:'C', show:true},
-        {mno: 2, name: 'Latte', price:5000, imgName:'M2.jpg', category:'C', show:true},
-        {mno: 3, name: 'Apple Cake', price:7000, imgName:'M3.jpg', category:'D', show:true},
-        {mno: 4, name: 'Key Ring', price:3000, imgName:'M4.jpg', category:'G', show:true},
+        {mno: 1, name: 'Drip Coffee', price:4000, imgName:'M1.jpg', category:'C' },
+        {mno: 2, name: 'Latte', price:5000, imgName:'M2.jpg', category:'C'},
+        {mno: 3, name: 'Apple Cake', price:7000, imgName:'M3.jpg', category:'D'},
+        {mno: 4, name: 'Key Ring', price:3000, imgName:'M4.jpg', category:'G'}
     ]
 
     //메뉴 컴포넌트에서 특정 메뉴를 클릭했을때 호출하는 함수
     const addCart = (mno: number) => {
-        console.log(mno)
+
+        const targetMenu = menuArr.filter(menu => menu.mno === mno)[0]
+        console.log(targetMenu)
+
+        //cartItems에서 해당 메뉴가 있는지 확인
+
+        const resultArr:CartItem[] = cartItems.filter( item => item.menu.mno === mno)
+
+        console.log(resultArr)
+
+        //없다면 cartItems에 추가
+        if(resultArr.length === 0) {
+            cartItems.push( {menu:targetMenu , qty: 1})
+        }else {
+            //있다면 qty만 변경
+            resultArr[0].qty += 1
+        }
+        setCartItems([...cartItems])
     }
 
 
@@ -24,7 +46,7 @@ function KioskContainer() {
             </div>
 
             <div className={'w-2/3 h-full bg-green-300 p-10'}>
-            <CartComponent></CartComponent>
+            <CartComponent cartItems={cartItems}></CartComponent>
             </div>
 
         </div>

@@ -33,7 +33,7 @@ function MenuComponent( {menus, addCart} : MenuComponentProps) {
 
 }
 
-    const menuLis = targetMenus.map( menu => menu.show ?
+    const menuLis = targetMenus.map( menu => (menu.category === cat || cat ==='A') ?
     <div onClick={() => handleClick(menu.mno)} key={menu.mno} className="max-w-xs bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
         <img src={menu.imgName} alt={menu.name} className="w-full h-48 object-cover" />
         <div className="p-4 text-center">
